@@ -1,5 +1,5 @@
 /************************************************************************************
- * tcpl ch2 ex1 :
+ * The C Programming Language 2-1 :
  * 
  * -> write a program to determine range of different data type by 2 methods printing
  *    from headers and direct computation
