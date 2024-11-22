@@ -13,13 +13,13 @@
 #include <string.h>
 
 int getHexValue(char c){
-  if(c >= '0' && c <= '9')
+  if(c >= '0' && c <= '9') //case number
     return c - '0';
 
-  if(c >= 'a' && c <= 'f')
+  if(c >= 'a' && c <= 'f') //case lower letter
     return c - 'a' + 10;
 
-  if(c >= 'A' && c <= 'f')
+  if(c >= 'A' && c <= 'f') //case upper letter
     return c + 'a' - 'A' + 10; // lower : convert char c to lower case; WARNING ASCII only 
 
   return -1;
@@ -35,7 +35,6 @@ int htoi(char hex[]){
   while(i >= 0 + padding){
     int char_val = getHexValue(hex[i]);
     if(char_val != -1){
-      printf("%d \n", char_val);
       result += char_val * (int) pow(16, j);
       i--;
       j++;
