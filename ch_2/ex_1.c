@@ -61,16 +61,22 @@ int main(int argc, char *argv[])
   //decimal precision in C use norm IEEE 754 float : [1 sign bit][8 exposant bits][23 mantissa bits]
   //value of float = (-1)^S * (1.0 + 0.M) * 2^(E - 127)
   //specifity to know -> the mantissa is between 1.0 and 2 maximum, and its value bit 23 is 1/2, bit 22 is 1/4 and so o
-  //-------------------> the mantissa will no longer use 1.0 when the minimal exponent is used (allow gradual underflow) 
+  //-------------------> the mantissa will no longer use 1.0 when the minimal exponent is used (allow gradual underflow go
+  //-------------------> lower than minimum normalise value with some loss of precision)
+  //-------------------> E = 255 <=> NaN
+  //the range here is the range is [0, +inf] because FLT_MIN correspond to the closest 0 positive number representable with 
+  //float but it can be union with the opposed range by turning the bit sign on
+  //lim -> +0 = (2^(-1) + 2^(-2) + 2^(-3) + ... + 2(^M_bits)) * 2^(1 - EMAX) 
+  //lim -> +inf = 1.0 + 0.(2^(-1) + 2^(-2) + 2^(-3) + ... + 2(^M_bits)) * 2^((E_bits - 1) - EMAX) 
   printf("\n-------------- Floating -----------------\n");
   printf("-> from headers float.h : \n");
   printf("float from %e to %e\n", FLT_MIN, FLT_MAX);
   printf("double from %e to %e\n", DBL_MIN, DBL_MAX);
-
-  printf("-> from computation : \n");
-  //aproximate 7 precision 
-  printf("float from %e to %e\n", - (1.0 + ))
-
+  printf("-> from computation : \n"); 
+  printf("float from %e to %e\n", (0.9999998807907104) * (pow(2, -126)), 1.9999998807907104 * pow(2, 127));
+  //we can approximate value M = by 0.99... by n significant digit which can be calculated M_bits * log10(2) 
+  //in double case its 15.95 so 15 9 is really close approximation
+  printf("double from %e to %e\n", 1.0 * (pow(2, -1022)), 1.999999999999999 * pow(2, 1023));
   
   return EXIT_SUCCESS;
 }
