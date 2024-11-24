@@ -20,7 +20,7 @@
 void printBits(unsigned char c){
   printf("%3d : ", c);
 
-  for(int i = 7; i > 0; i--){
+  for(int i = 7; i >= 0; i--){
     unsigned char byte = (c >> i) & 1;
     printf("%u", byte);
   }
