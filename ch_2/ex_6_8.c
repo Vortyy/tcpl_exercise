@@ -43,8 +43,9 @@ unsigned set_bits(int x, int p, int n, int y){
 /*  | (~(~0 << n) & y) << (p + 1 - n); */
 /*}*/
 
-unsigned invert(int x, int p){
-  return 0;
+//XOR here produce 1 wher bitA != bitB everything else produce 0
+unsigned invert(int x, int p, int n){
+  return x ^ (~(~0 << n) << (p + 1 - n));
 }
 
 int main(int argc, char *argv[])
@@ -60,6 +61,10 @@ int main(int argc, char *argv[])
   x = set_bits(x, p, n, y);
 
   printf("set_bits result : \n");
+  printBits(x);
+
+  printf("\ninvert bits : \n");
+  x = invert(x, p, n);
   printBits(x);
   //shift bit not erase them which is really different 
   return EXIT_SUCCESS;
