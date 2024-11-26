@@ -4,11 +4,10 @@
  * 2-6 -> write a fct setbits(x,p,n,y) that return x with n bits that begin at p set
  *        set to the rightmost n bits of y, leaving the other bits unchanged
  *
- * 2-7 -> write a fct any(s1, s2) that return the first location in a string s1 where
- *        any character from the string s2 occurs, or -1 if s1 contains no char from
- *        s2. (<=> strpbrk)
- * 
- * 2-8 -> ...
+ * 2-7 -> write invert(x, p, n) a fonction that invert the n bit from p position 
+ *
+ * 2-8 -> write a rightrotation(x, n) a fct that return x right rotated by a n value
+ *
  * Copyright (c) 2024 CHABOT Yohan 
  ************************************************************************************/
 
@@ -48,6 +47,16 @@ unsigned invert(int x, int p, int n){
   return x ^ (~(~0 << n) << (p + 1 - n));
 }
 
+unsigned right_rot(int x, int n){
+  unsigned tmp;
+  while(n-- > 0){
+    tmp = (x & 1) << 31; // shift rightmost value to the leftmost part
+    x = x >> 1;
+    x = x | tmp; 
+  }
+  return x;
+}
+
 int main(int argc, char *argv[])
 {
   //when constant are initialise if there is 0 in front means its an octal
@@ -65,6 +74,10 @@ int main(int argc, char *argv[])
 
   printf("\ninvert bits : \n");
   x = invert(x, p, n);
+  printBits(x);
+
+  printf("\nright rotation by 3 : \n");
+  x = right_rot(x, 3);
   printBits(x);
   //shift bit not erase them which is really different 
   return EXIT_SUCCESS;
