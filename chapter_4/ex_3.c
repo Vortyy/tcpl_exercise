@@ -1,3 +1,11 @@
+/************************************************************************************
+ * The C Programming Language 4-3, 4-4, 4-5, 4-6, 4-7, 4-8, 4-9, 4-10 :
+ * 
+ * -> 
+ *
+ * Copyright (c) 2024 CHABOT Yohan 
+ ************************************************************************************/
+
 #include <math.h>
 #include <stdlib.h>
 #include <ctype.h>
@@ -136,6 +144,7 @@ double pop(void){
 int getch(void);
 void ungetch(int);
 
+//4-10 dealing with getline only change getop to play with an array and a global index without calling getch and ungetch because there is no overflow while reading
 //the getch() always goes +1 further than the number that why they've put ungetch to keep the on that goes out of the buffer
 int getop(char s[]){ /* get next char or numeric operand */
   int i, c;
@@ -188,8 +197,17 @@ int getop(char s[]){ /* get next char or numeric operand */
   return NUMBER;
 }
 
+/* ungets no need to handle buf and bufp because ungetch already handle it */
+void ungets(char s[]){
+  int len = strlen(s);
+  
+  while(len > 0)
+    ungetch(s[--len]);
+}
+
 #define BUFSIZE 100
 
+/* 4-9 just pass buf to int to avoid conversion make -1 become 255 bcs when it does conversion it replace missing left missing byte by 0 here int -> char -> int (ex: 0xFFFF -> 0xFF -> 0x00FF)*/
 char buf[BUFSIZE];    /* buffer for ungetch */
 int bufp = 0;         /* next free position in buf */
 
