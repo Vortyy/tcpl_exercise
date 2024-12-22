@@ -20,7 +20,7 @@ int get_line(char *s, int lim){
   *s = '\0';
 
   //printf("size %ld \n", (s - t));
-  return s - t;
+  return (s - t); /*ending char add*/
 }
 
 int atoi_(char *s){
@@ -38,10 +38,10 @@ int atoi_(char *s){
   return n * sign;
 }
 
-int main(){
-  char line[MAXLINE];
-  while(get_line(line, MAXLINE) > 0){
-    printf("%d\n", atoi_(line));
-  } 
-  return 0;
-}
+/*int main(){*/
+/*  char line[MAXLINE];*/
+/*  while(get_line(line, MAXLINE) > 0){*/
+/*    printf("%d\n", atoi_(line));*/
+/*  } */
+/*  return 0;*/
+/*}*/
