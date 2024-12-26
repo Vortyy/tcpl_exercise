@@ -1,5 +1,5 @@
 /************************************************************************************
- * The C Programming Language 5-14:
+ * The C Programming Language 5-14, 5-15, 5-16 and 5-17 :
  * 
  * -> rewrite the tail linux command 
  *
@@ -27,6 +27,11 @@ void q_sort(void *arr[], int left, int right, int (*comp) (void *, void *), int 
 int num_cmp(char *, char *);                                                              /* compare numericaly to string */
 int dir_cmp(char *, char *);                                                              /* compare only alphanumeric and blanck char */
 
+void substring(char *);
+
+int start_pos = -1;
+int end_pos = 1;
+
 int main(int argc, char *argv[]){
   int nlines;
   int reverse = 0;
@@ -35,7 +40,7 @@ int main(int argc, char *argv[]){
   char *cmp_fct_name = "strcmp";
   int cmp_lock = 0;
 
-  while(argc-- > 1){ /* reads arguments */
+   while(argc-- > 1){ /* reads arguments */
     if(*argv[argc] == '-')
       while(*++argv[argc]){
         if(*argv[argc] == 'n' && cmp_lock == 0)
@@ -46,11 +51,18 @@ int main(int argc, char *argv[]){
           ARG_MACRO(dir_cmp)
         if(*argv[argc] == 'r')
           reverse = 1;
+        if(*argv[argc] == isalnum(*argv[argc])){
+          start_pos = atoi(argv[argc]);
+          *argv[argc] += strlen(argv[argc]);
+        }
       }
+    if(*argv[argc] == '+'){
+      end_pos = atoi(++argv[argc]);
+    }
   }
 
   printf("cmp_fct: %s, reverse : %d\n\n", cmp_fct_name, reverse);
-  
+
   if((nlines = readlines(lineptr, linestore, MAXLINES)) >= 0){
     q_sort((void **) lineptr, 0, nlines-1, (int (*) (void *, void *)) cmp_fct, reverse);
     writelines(lineptr, nlines);
@@ -78,6 +90,9 @@ int readlines(char *lineptr[], char *linestore, int maxlines){
     else {
       /*line[len-1] = '\0'; /* correct \n already done in implementation of get_line in ex_6.c */
       /*printf("line copied of %d : %s \n", len, line);*/
+      if(start_pos != -1 && end_pos != -1)
+        substring(line);
+
       strcpy(p, line);
       lineptr[nlines++] = p;
       p += len + 1; /* +1 adding ended char len is without */
@@ -141,8 +156,19 @@ int dir_cmp(char *s1, char *s2){
     if(*s1 == *s2 && *s1 == '\0')
       return 0;
   }
-
+  
   return *s1 - *s2;
+}
+
+void substring(char *str){
+  char *p_str = str;
+  int len = strlen(str);
+  if(end_pos < len)
+    for(int i = start_pos; i < end_pos; i++)
+      *p_str++ = *(str + i);
+  else 
+    printf("error : range is too big for input...");
+  *p_str = '\0'; 
 }
 
 void swap(void *v[], int d, int s){
