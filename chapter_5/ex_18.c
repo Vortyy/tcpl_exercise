@@ -11,13 +11,17 @@
 
 #define MAXTOKEN 100
 
-enum { NAME, PARENS, BRACKETS };
+enum { ERROR, NAME, PARENS, BRACKETS };
 
 void dcl(void);
 void dirdcl(void);
 int gettoken(void);
+
 int getch();
 void ungetch(int);
+
+void dcl_error(char *);   /* set error flag to 1 and print a message */
+void clear();             /* clear arrays and buffer */
 
 int tokentype;            /* type of last token */
 char token[MAXTOKEN];     /* last token string */
@@ -25,21 +29,30 @@ char name[MAXTOKEN];      /* identifier name */
 char datatype[MAXTOKEN];  /* data type = char, int, etc. */
 char out[1000];
 
+char error;               /* error marker */
+
+/* in this answer i choose to skip the line when it got an unexpected input */
 int main(){
+  error = 0;
   while(gettoken() != EOF){
     strcpy(datatype, token);
     out[0] = '\0';
     dcl();
     if(tokentype != '\n')
-      printf("syntax error\n");
-    printf("%s: %s %s \n", name, out, datatype);
+      dcl_error("syntax error");
+
+    if(error) /* if an error append during dcl execution */
+      clear();
+    else
+      printf("%s: %s %s \n", name, out, datatype);
   }
   return 0;
 }
 
 void dcl(){
   int ns;
-  for(ns = 0; gettoken() == '*';ns++);
+  for(ns = 0; gettoken() == '*';ns++)
+    ;
   dirdcl();
   while(ns-- > 0)
     strcat(out, " pointer to");
@@ -51,11 +64,11 @@ void dirdcl(){
   if(tokentype == '('){
     dcl();
     if(tokentype != ')')
-      printf("error : missing ) ...\n");
+      dcl_error("missing ) ...");
   } else if (tokentype == NAME) 
     strcpy(name, token);
   else
-    printf("error: expected name or (dcl)\n");
+    dcl_error("expected name or (dcl)");
 
   while((type=gettoken()) == PARENS || type == BRACKETS)
     if(type == PARENS)
@@ -64,12 +77,15 @@ void dirdcl(){
       strcat(out, " array");
       strcat(out, token);
       strcat(out, " of");
-    } 
+    }
 }
 
 int gettoken(){
   int c;
   char *p = token;
+
+  if(error)
+    return ERROR;
 
   while((c = getch()) == ' ' || c == '\t');
 
@@ -95,10 +111,21 @@ int gettoken(){
     return tokentype = c;
 }
 
+void dcl_error(char *msg){
+  printf("err_msg : %s\n", msg);
+  error = 1;
+}
+
 #define BUFSIZE 100
 
 int buf[BUFSIZE];     /* buffer for ungetch */
 int bufp = 0;         /* next free position in buf */
+
+void clear(){ /* reset buffer reader */
+  printf("There was at least 1 error in your previous input please retype it :\n");
+  bufp = 0; /* resest getch */
+  error = 0;
+}
 
 int getch(){    /* get characters maybe a pushed-back one */
   return (bufp > 0) ? buf[--bufp] : getchar();
