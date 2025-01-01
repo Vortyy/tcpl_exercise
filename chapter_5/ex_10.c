@@ -10,6 +10,7 @@
 #include <ctype.h>
 #include <stdlib.h>
 #include <stdio.h>
+
 //inspired but rewrited to play more with argv and argc, obviously we could use ex_3
 #define MAXOP 100
 #define NUMBER '0'

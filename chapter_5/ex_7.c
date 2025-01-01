@@ -1,8 +1,9 @@
 /************************************************************************************
- * The C Programming Language 5-3:
- * 
- * -> write a function htoi(s) -> take a string of hex decimal value and convert it
- *    to its equivalent in integer value
+ * The C Programming Language 5-7:
+ * WARNING THIS EXERCISE NEED TO BE COMPILED WITH ex_6.c TO GET get_line()
+ *
+ * -> Rewrite readlines to store lines in an array supplied by main, rather than 
+ *    calling alloc to maintain storage.
  *
  * Copyright (c) 2024 CHABOT Yohan 
  ************************************************************************************/
@@ -10,7 +11,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#define MAXLINES 500 /* max #lines to be sorted */
+#define MAXLINES 500  /* max #lines to be sorted */
 #define MAXSTOR 10000 /* max character that can be stored */
 
 char *lineptr[MAXLINES]; /* pointers to text lines */
@@ -21,6 +22,8 @@ void writelines(char *lineptr[], int nlines);
 
 void qsort(char *lineptr[], int left, int right); /* sort input lines */
 
+/* this version is slightly faster than the previous one because you don't 
+ * at each new line */
 int main(){
   int nlines;
 

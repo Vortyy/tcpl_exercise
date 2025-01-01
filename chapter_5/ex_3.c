@@ -1,8 +1,14 @@
 /************************************************************************************
- * The C Programming Language 5-3:
+ * The C Programming Language 5-3, 5-4, and 5-5:
  * 
- * -> write a function htoi(s) -> take a string of hex decimal value and convert it
- *    to its equivalent in integer value
+ * 5-3 -> Write a pointer version of the fucntion strcat(s, t) that copies the string
+ *        t to the end of s
+ *
+ * 5-4 -> Write the function strend(s,t), which return 1 if the string t occurs at the
+ *        end of the string s, and 0 otherwise
+ *
+ * 5-5 -> Write versions of the library functions strncpy, strncat, and strncmp, which 
+ *        operate on at most the first n characters of their argument strings.
  *
  * Copyright (c) 2024 CHABOT Yohan 
  ************************************************************************************/

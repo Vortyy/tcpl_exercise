@@ -1,7 +1,19 @@
 /************************************************************************************
  * The C Programming Language 5-14, 5-15, 5-16 and 5-17 :
+ * WARNING THIS EXERCISE NEED TO BE COMPILED WITH ex_6.c TO GET get_line() 
  * 
- * -> rewrite the tail linux command 
+ * 5-14 -> Modify the sort program to handle a -r flag, which indicates sorting in 
+ *         reverse (decreasing) order. Be sure that -r works with -n.
+ *
+ * 5-15 -> Add the option -f to fold upper and lower case together, so that case 
+ *         distinctions are not made during sorting; for example, a and A compare 
+ *         equal.
+ *
+ * 5-16 -> Add the -d (``directory order'') option, which makes comparisons only on 
+ *         letters, numbers and blanks. Make sure it works in conjunction with -f.
+ *
+ * 5-17 -> Add a field-searching capability, so sorting may bee done on fields within 
+ *         lines, each field sorted according to an independent set of options.
  *
  * Copyright (c) 2024 CHABOT Yohan 
  ************************************************************************************/

@@ -1,8 +1,7 @@
 /************************************************************************************
- * The C Programming Language 5-3:
+ * The C Programming Language 5-8:
  * 
- * -> write a function htoi(s) -> take a string of hex decimal value and convert it
- *    to its equivalent in integer value
+ * -> There is no error checking in day_of_year or month_day. Remedy this defect.
  *
  * Copyright (c) 2024 CHABOT Yohan 
  ************************************************************************************/
@@ -10,7 +9,8 @@
 #include <stdio.h>
 #include <sys/types.h>
 
-#define isLeap(x) (x%4 == 0 && x%100 != 0 || year%400 == 0) /* a leap year is every 4 year except every 100 year and 400 */
+/* small notice hint there is 366 day in leap year and 365 in non-leap year */
+#define isLeap(x) (x%4 == 0 && x%100 != 0 || year%400 == 0) /* a leap year is every 4 years except every 100 years unless it's a 400 years multiple */
 
 static char daytab[2][13] = {
   {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31},
@@ -28,6 +28,7 @@ int day_of_year(int year, int month, int day)
     day += daytab[leap][i];
   return day;
 }
+
 /* month_day: set month, day from day of year */
 void month_day(int year, int yearday, int *pmonth, int *pday)
 {

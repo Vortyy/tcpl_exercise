@@ -1,7 +1,8 @@
 /************************************************************************************
- * The C Programming Language 5-13:
+ * The C Programming Language 5-20:
  * 
- * -> rewrite the tail linux command 
+ * -> Expand dcl to handle declarations with function argument types, qualifiers 
+ *    like const, and so on.
  *
  * Copyright (c) 2024 CHABOT Yohan 
  ************************************************************************************/
@@ -13,8 +14,9 @@
 
 enum { ERROR, QUALIFIER, TYPE, NAME, PARENS, BRACKETS };
 
-void extdcl(void);   
-void paramdcl(void);
+void extdcl(void);        /*extdcl handle qualifier and type for main element, then start dlc*/   
+void paramdcl(void);      /*paramdcl handle qualifier and type for parameter of function, then dlc on it*/
+
 void dcl(int);
 void dirdcl(int);
 int gettoken(void);
@@ -34,7 +36,7 @@ char out[1000];
 
 char error;               /* error marker */
 
-/* we choose to modify */
+/* we choose to modify dcl and directdcl to make them able to understand if there dealing with a param or not*/
 int main(){
   error = 0;
   while(gettoken() != EOF){
@@ -75,7 +77,7 @@ void paramdcl(){
   char temp[MAXTOKEN];
   temp[0] = '\0';
 
-  gettoken(); 
+  gettoken();
   if(tokentype == QUALIFIER){
     strcat(temp, token);
     gettoken();

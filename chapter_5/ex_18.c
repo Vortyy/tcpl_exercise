@@ -1,7 +1,7 @@
 /************************************************************************************
- * The C Programming Language 5-13:
+ * The C Programming Language 5-18:
  * 
- * -> rewrite the tail linux command 
+ * -> Make dcl recover from input errors.
  *
  * Copyright (c) 2024 CHABOT Yohan 
  ************************************************************************************/
@@ -31,7 +31,7 @@ char out[1000];
 
 char error;               /* error marker */
 
-/* in this answer i choose to skip the line when it got an unexpected input */
+/* in this answer i choose to skip the line when it got an unexpected input (cf. error marker)*/
 int main(){
   error = 0;
   while(gettoken() != EOF){
@@ -85,7 +85,7 @@ int gettoken(){
   char *p = token;
 
   if(error)
-    return ERROR;
+    return tokentype = ERROR;
 
   while((c = getch()) == ' ' || c == '\t');
 

@@ -1,8 +1,8 @@
 /************************************************************************************
  * The C Programming Language 5-6:
  * 
- * -> write a function htoi(s) -> take a string of hex decimal value and convert it
- *    to its equivalent in integer value
+ * -> Rewrite appropriate programs from earlier chapters and exercises with pointers 
+ *    instead of array indexing. (i choose get_line and itoa)
  *
  * Copyright (c) 2024 CHABOT Yohan 
  ************************************************************************************/

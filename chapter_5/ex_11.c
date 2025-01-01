@@ -1,8 +1,11 @@
 /************************************************************************************
  * The C Programming Language 5-11 and 5-12 :
  * 
- * -> rewrite entab and detab to accept a list of tab stop as arguments (use default:
- *    if no args)
+ * 5-11 -> rewrite entab and detab to accept a list of tab stop as arguments (use default:
+ *         if no args)
+ *
+ * 5-12 -> Extend entab and detab to accept "-m +n" meaning tab stop every n column 
+ *         starting at column m
  *
  * Copyright (c) 2024 CHABOT Yohan 
  ************************************************************************************/

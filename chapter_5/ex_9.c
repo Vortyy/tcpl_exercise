@@ -1,15 +1,14 @@
 /************************************************************************************
- * The C Programming Language 5-3:
+ * The C Programming Language 5-9:
  * 
- * -> write a function htoi(s) -> take a string of hex decimal value and convert it
- *    to its equivalent in integer value
+ * -> Rewrite the routines day_of_year and month_day with pointers instead of indexing.
  *
  * Copyright (c) 2024 CHABOT Yohan 
  ************************************************************************************/
 
-/* small notice hint there is 366 day in leap year and 365 in non-leap year */
 #include <stdio.h>
 
+/* small notice hint there is 366 day in leap year and 365 in non-leap year */
 #define isLeap(x) (x%4 == 0 && x%100 != 0 || year%400 == 0) /* a leap year is every 4 year except every 100 year and 400 */
 
 static char *name[] = {"Illegal test", "jan", "feb", "mar"};

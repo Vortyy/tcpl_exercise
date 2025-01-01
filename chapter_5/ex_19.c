@@ -1,7 +1,7 @@
 /************************************************************************************
- * The C Programming Language 5-13:
+ * The C Programming Language 5-19:
  * 
- * -> rewrite the tail linux command 
+ * -> Modify undcl so that it does not add redundant parentheses to declarations.
  *
  * Copyright (c) 2024 CHABOT Yohan 
  ************************************************************************************/
@@ -27,6 +27,8 @@ char out[1000];
 
 int prevtoken;
 
+/* here the trick is to understand that you need to get the next token to see if correspond
+ * to the condition, and if not get it back on next gettoken() */
 int main(){
   int type, prevtoken =0;
   char temp[MAXTOKEN];

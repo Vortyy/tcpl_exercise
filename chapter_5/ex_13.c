@@ -1,7 +1,8 @@
 /************************************************************************************
  * The C Programming Language 5-13:
  * 
- * -> rewrite the tail linux command 
+ * -> Write the program tail, which prints the last n lines of its input. By default, 
+ *    n is set to 10, let us say, but it can be changed by an optional argument
  *
  * Copyright (c) 2024 CHABOT Yohan 
  ************************************************************************************/
