@@ -1,8 +1,8 @@
 /************************************************************************************
- * The C Programming Language 5-2:
+ * The C Programming Language 6-1:
  * 
- * -> write getfloat (cf ch.4 ex_2) which transform a string into a float and return
- *    int of the last char
+ * -> Improve getword() presented in ch6.3 by taking into account comment, underscore
+ *    preprocessor control and string constant
  *
  * Copyright (c) 2024 CHABOT Yohan 
  ************************************************************************************/
@@ -33,7 +33,7 @@ struct key {
   "while", 0
 }; /* not written all the keyword don't hit me */
 
-int getword(char *, int);
+int getword(char *, int); /* ref to get_word.c */
 
 /* insight here that every parameter is a local variable inside the function, then it copy the variable inside
  * that why with classic type there no probleme because they are lightweight but when it comes to big structures
@@ -49,7 +49,7 @@ int main(){
         keytab[n].count++;
   for(n = 0; n < NKEYS; n++)
     if(keytab[n].count > 0)
-      printf("s : %4d %s\n", keytab[n].count, keytab[n].word);
+      printf("%4d %s\n", keytab[n].count, keytab[n].word);
   return 0;
 }
 
@@ -69,74 +69,4 @@ int binsearch(char *word, struct key *tab, int n){
       return mid;
   }
   return -1;
-}
-
-int getword(char *word, int lim){
-  int c, d, comment(), getch(void);
-  void ungetch(int);
-  char *w = word;
-
-  while (isspace(c = getch()))
-    ;
-  if(c != EOF)
-    *w++ = c;
-  if(c == '\'' || c == '"'){ /* string or char */
-    for(; --lim > 0; w++){
-      if((*w = getch()) == '\\')
-        *w++ = getch();
-      else if(*w == c){
-        w++;
-        break;
-      } else if(*w == EOF){
-        break;
-      }
-    } 
-  }
-  else if (isalpha(c) || c == '_' || c == '#'){ /* C keyword */
-    for(; --lim > 0 ; w++) /* word */
-      if(!isalnum(*w = getch()) && *w != '_'){
-        ungetch(*w);
-        break;
-      }
-  } else if (c == '/'){ /* a comment */
-    if((d = getch()) == '*')
-      c = comment();
-    else
-      ungetch(d);
-  }
-  
-  *w = '\0';
-  return c;
-}
-
-/* comment skip until the comment end */ 
-int comment(){
-  int c, getch(void);
-  while((c=getch()) != EOF)
-    if(c == '*')
-      if((c = getch()) == '/')
-        break;
-      else
-        ungetch(c);
-
-  return c;
-}
-
-/* getch and ungetch part, pointer version */
-
-#define BUFSIZE 100
-
-int buf[BUFSIZE];     /* buffer for ungetch */
-int *bufp = buf;         /* next free position in buf */
-
-int getch(){    /* get characters maybe a pushed-back one */
-  return (bufp > buf) ? *--bufp : getchar();
-}
-
-void ungetch(int c){    /* push back char on input */
-  if(bufp >= buf + BUFSIZE){
-    fprintf(stderr, "ungetch : too many characters \n");
-  } else {
-    *bufp++ = c;
-  }
 }
