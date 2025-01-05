@@ -58,8 +58,7 @@ int main(int argc, char *argv[]){
 void addtree_ite(struct tnode *root, char *w){
   struct tnode *p = root; /* ptr moving along the tree */ 
   struct tnode *dad;      /* ptr to parent of p */
-  int cond;
-  int match_found = 0;    /* if a match is found during the parcours */
+  int cond = -1;
 
   if(root->word == NULL){ /* first element */
     root->lines_num = lalloc();
