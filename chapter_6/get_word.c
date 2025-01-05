@@ -9,7 +9,7 @@ int getword(char *word, int lim){
   int c, d, comment();
   char *w = word;
 
-  while (isspace(c = getch()))
+  while (isspace(c = getch()) && c!='\n')
     ;
   if(c != EOF)
     *w++ = c;
