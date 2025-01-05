@@ -25,7 +25,7 @@ int getword(char *word, int lim){
       }
     } 
   }
-  else if (isalpha(c) || c == '_' || c == '#'){ /* C keyword */
+  else if (isalnum(c) || c == '_' || c == '#'){ /* C keyword */
     for(; --lim > 0 ; w++) /* word */
       if(!isalnum(*w = getch()) && *w != '_'){
         ungetch(*w);
