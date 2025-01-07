@@ -1,10 +1,9 @@
 /************************************************************************************
- * The C Programming Language 6-3:
+ * The C Programming Language 6-6:
  *
- * -> Write a program that reads a C program and prints in alphabetical order each
- *    group of variable names that are identical in the first 6 characters, but different 
- *    somewhere thereafter. Don't count words within strings and comments. Make 6 a 
- *    parameter that can be set from the command line.
+ * -> Implement a simple version of the #define processor (i.e., no arguments)
+ *    suitable for use with C programs, based on the routines of this section. 
+ *    You may also find getch and ungetch helpful. 
  *
  * Copyright (c) 2024 CHABOT Yohan 
  ************************************************************************************/
@@ -16,7 +15,7 @@
 #define HASHSIZE 101
 #define MAXWORD 100
 
-struct nlist { /* table entry */
+struct nlist {        /* table entry */
   struct nlist *next; /* next entry in chain */
   char *name;         /* define name */
   char *defn;         /* replacement text */
@@ -35,6 +34,8 @@ unsigned hash(char *s){
 }
 
 int getword(char *, int); /* ref to get_word.c */
+int getch();              /* ref to get_word.c */
+void ungetch(int);        /* ref to get_word.c */
 
 void setdef(void);
 void setundef(void);
@@ -59,7 +60,7 @@ int main(int argc, char **argv){
       else if (strcmp("#undef", word) == 0)
         setundef();
       else
-        error("unknown preprocessor command");
+        error("unknown processor command");
     else if(!isalpha(word[0]))
       printf("%s ", word);
     else if((p = lookup(word)) == NULL)
@@ -78,12 +79,37 @@ void error(char *s){
   while((n = getword(trash, MAXWORD)) != '\n');
 }
 
+/* setdef : take next word as name and the rest of line as def */
 void setdef(){
-  //TODO
+  int c, i;
+  char name[MAXWORD], def[MAXWORD];
+  if(getword(name, MAXWORD) != EOF) /* name */ 
+    if(!isalpha(name[0])){
+      error("define name is not alphabetical...");
+      return;
+    }
+
+  /* get def */
+  while((c = getch()) == ' ' || c == '\t');
+  
+  ungetch(c);
+  for(i = 0; i < MAXWORD - 1; i++)
+    if((def[i] = getch()) == EOF || def[i] == '\n')
+      break;
+  def[i] = '\0';
+  if(i <= 0){
+    error("no definition given for #define");
+  } else 
+    install(name, def);
 }
 
+/* setundef : take the next word verify it and then try to undef */
 void setundef(){
-  //TODO
+  char name[MAXWORD];
+  if(isalpha(getword(name, MAXWORD)))
+    undef(name);
+  else
+    error("name of #undef isn't alphabetical");
 }
 
 /* lookup : look for s in hashtab */

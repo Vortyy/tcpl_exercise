@@ -1,5 +1,6 @@
 /************************************************************************************
  * The C Programming Language 6-1:
+ * WARNING THIS PROGRAM NEED get_word.c TO COMPILE
  * 
  * -> Improve getword() presented in ch6.3 by taking into account comment, underscore
  *    preprocessor control and string constant

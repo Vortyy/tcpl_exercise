@@ -1,10 +1,10 @@
 /************************************************************************************
  * The C Programming Language 6-3:
- *
- * -> Write a program that reads a C program and prints in alphabetical order each
- *    group of variable names that are identical in the first 6 characters, but different 
- *    somewhere thereafter. Don't count words within strings and comments. Make 6 a 
- *    parameter that can be set from the command line.
+ * WARNING THIS PROGRAM NEED get_word.c TO COMPILE
+ * 
+ * -> Write a cross-referencer that prints a list of all words in a document, and for
+ *    each word, a list of the line numbers on which it occurs. Remove noise words like ``the,''
+ *    ``and,'' and so on.
  *
  * Copyright (c) 2024 CHABOT Yohan 
  ************************************************************************************/
