@@ -19,10 +19,11 @@ void minprintf(char *fmt, ...);
 int main(){
   char *test = "test";
   char t = 't';
-  int i = 15;
+  int i = 15; //if i use i as a ptr without using it's address it's give me the address 15 <=> 0xf
   printf("%p -- %p\n", &i, (void *) &i); /* with va_arg &i as arg this give me a really weird address and idk why, my pseudo answer that macro is &(&i) like that and make it fuck'd up with addresses */
-  minprintf("ceci est un test : %c %x %X %o %p %p", t, i, i, i);
+  minprintf("ceci est un test : %c %x %X %o %p", t, i, i, i, &i);
   printf("\n");
+  return 0;
 }
 
 void minprintf(char *fmt, ...){
