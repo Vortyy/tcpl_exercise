@@ -1,7 +1,8 @@
 /************************************************************************************
  * The C Programming Language 7-5 :
  * 
- * -> 
+ * -> Rewrite the postfix calculator of Chapter 4 to use scanf and/or sscanf to do
+ *    the input and number conversion.
  *
  * Copyright (c) 2024 CHABOT Yohan 
  ************************************************************************************/

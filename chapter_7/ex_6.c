@@ -1,7 +1,7 @@
 /************************************************************************************
  * The C Programming Language 7-6 :
  * 
- * -> 
+ * -> Write a program to compare two files, printing the first line where they differ.
  *
  * Copyright (c) 2024 CHABOT Yohan 
  ************************************************************************************/

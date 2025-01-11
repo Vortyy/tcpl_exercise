@@ -1,9 +1,8 @@
 /************************************************************************************
  * The C Programming Language 7-3:
  * 
- * -> Write a program that will print arbitrary input in a sensible way. As a
- *    minimum, it should print non-graphic characters in octal or hexadecimal according to local
- *    custom, and break long text lines.
+ * -> Write a private version of scanf analogous to minprintf from the previous
+ *    section.
  *
  * Copyright (c) 2024 CHABOT Yohan 
  ************************************************************************************/
