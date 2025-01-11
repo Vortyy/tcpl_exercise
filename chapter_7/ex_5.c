@@ -121,7 +121,7 @@ int getop(double *v){ /* get next char or numeric operand */
   
   if(r == 0){ /* not a number then get the char operation */
     scanf("%c", &c);
-    scanf("%c", &nc);
+    scanf("%c", &nc); /* nc is usefull to catch '\n' because when you call scanf on %lf sequence of char like ' ''\n' are skipped */
     /*printf("%c and %c", c, nc);*/
     return c;
   }

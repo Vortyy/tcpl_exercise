@@ -19,7 +19,7 @@ int getHexValue(char c){
   if(c >= 'a' && c <= 'f') //case lower letter
     return c - 'a' + 10;
 
-  if(c >= 'A' && c <= 'f') //case upper letter
+  if(c >= 'A' && c <= 'F') //case upper letter
     return c + 'a' - 'A' + 10; // lower : convert char c to lower case; WARNING ASCII only 
 
   return -1;
