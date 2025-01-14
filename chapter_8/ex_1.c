@@ -1,8 +1,8 @@
 /************************************************************************************
  * The C Programming Language 8-1 :
  * 
- * -> Write a program to print a set of files, starting each new one on a new page,
- *    with a title and a running page count for each file.
+ * -> Rewrite (chapter_7/ex_8.c) using read, write, open and close using their <unistd.h>
+ *    equivalent, and determine the relative speeds of the two version 
  *
  * Copyright (c) 2024 CHABOT Yohan 
  ************************************************************************************/

@@ -1,11 +1,20 @@
 /************************************************************************************
  * The C Programming Language 8-2, 8-3 and 8-4 :
  * 
- * -> Write a program to print a set of files, starting each new one on a new page,
- *    with a title and a running page count for each file.
+ * 8-2 -> Rewrite fopen and _fillbuf with fields instead of explicit bit operations. 
+ *        Compare code size and execution speed 
+ *
+ * 8-3 -> Design and write _flushbuf, fflush and fclose
+ *
+ * 8-4 -> int fseek(FILE *fp, long offset, int origin) is identical to lseek except 
+ *        that fp is a file pointer instead of a file descriptor and return value is 
+ *        an int status, not a position. Write fseek. Make sure that your fseek 
+ *        coordinates properly with the buffering done for the other functions of 
+ *        the library.
  *
  * Copyright (c) 2024 CHABOT Yohan 
  ************************************************************************************/
+
 // ----------------------------------- MYSTDIO.H ---------------------------------- //
 
 #define NULL 0
@@ -78,11 +87,12 @@ struct flag_field const _wu = _setflags(0, 1, 1);
 
 FILE _iob[OPEN_MAX] = { /* stdin, stdout, stderr */ 
   {0, (char *) 0, (char *) 0, _read, 0},
-  {0, (char *) 0, (char *) 0, _write, 0},
-  {0, (char *) 0, (char *) 0, _wu, 0},
+  {0, (char *) 0, (char *) 0, _write, 1},
+  {0, (char *) 0, (char *) 0, _wu, 2},
 };
 
 /* while stdio.h is not included the warning is not a big deal just telling me that will be a conflic */
+/* fopen : set a member of _iob array and create a link with its file descriptor */
 FILE *fopen(char *name, char *mode){
   int fd;
   FILE *fp;
@@ -122,6 +132,7 @@ FILE *fopen(char *name, char *mode){
   return fp;
 }
 
+/* _fillbuf : fill the buffer of a file pointer to be read */
 int _fillbuf(FILE *fp){
   int bufsize;
   if(fp->flags.is_read == 0 || fp->flags.is_err == 1 || fp->flags.is_eof == 1)
@@ -147,10 +158,7 @@ int _fillbuf(FILE *fp){
                                         it be used to be dereferenced nice trick */
 }
 
-int fclose(FILE *fp){
-  return 0;
-}
-
+/* _flushbuf : flush the buffer of file pointer and write at 1st the c char to it, return c */
 int _flushbuf(int c, FILE *fp){
   unsigned nc;
   int bufsize;
@@ -167,14 +175,79 @@ int _flushbuf(int c, FILE *fp){
       fp->flags.is_err = 1;
       return EOF;
     }
+  } else { /* there is a buffer write it's content */
+    nc = fp->ptr - fp->base;
+    if(write(fp->fd, fp->base, nc) != nc){
+      fp->flags.is_err = 1;
+      return EOF;
+    }
   }
-  return 0;
+
+  fp->ptr = fp->base;     /* reset ptr of the next free space char */
+  *fp->ptr++ = (char) c;  /* store c inside buffer */
+  fp->cnt = bufsize - 1;  /* reset char left */
+
+  return c;
 }
 
-int fflush(){
-  return 0;
+/* fflush : flush/reset the file pointer */
+int fflush(FILE *fp){
+  int rc;
+  if(fp->flags.is_write == 1)
+    rc = _flushbuf(0, fp);
+  fp->ptr = fp->base;
+  fp->cnt = (fp->flags.is_unbuf == 1) ? 1 : BUFSIZ;
+  return rc;
 }
 
+/* fclose : flush file buffer and release ressources */
+int fclose(FILE *fp){
+  int rc; /* return code */
+  if((rc = fflush(fp)) != EOF){
+    free(fp->base);
+    fp->ptr = NULL;
+    fp->cnt = 0;
+    fp->base = NULL;
+    fp->flags = (struct flag_field) _setflags(0,0,0); /* reset flags */
+    fp->fd = 0; /* reset fd even if it will be remap at each fopen */
+  }
+  return rc;
+}
+
+int fseek(FILE *fp, long offset, int origin){
+  long rc = 0;
+  unsigned nc;
+  if(fp->flags.is_read == 1){
+    if(origin == 1)
+      offset -= fp->cnt;
+    rc = lseek(fp->fd, offset, origin);
+    fp->cnt = 0;
+  } else {
+    if((nc = fp->ptr - fp->base) > 0)
+      if(write(fp->fd, fp->base, nc) != nc)
+        rc = -1;
+    if(rc != -1)
+      rc = lseek(fp->fd, offset, origin);
+    
+  }
+  return (rc == -1) ? -1 : 0;
+}
+
+/* simple getchar() -> putchar() until EOF with MYSTDIO.h */
+/* how this works is simple first getchar() call _fillbuf --> that reads stdin file (fd = 0) then all getchar() call
+* will correspond to an element of the buffered array char, then when all the char of the arr will be consumed 
+* getchar() recall _fillbuf() to queries the new input inside stdin all the input are reported thx to the read() fct */ 
 int main(){
+  int c;
+
+  FILE *fp = fopen("ex_1.c", "r");
+  fseek(fp, 300, 0); 
+
+  while((c = getc(fp)) != EOF){
+    putchar(c);
+  }
+
+  fclose(fp);
+  fclose(stdout); //this line force to _flushbuf stdout to print even if the buffer size limit is not reach 
   return 0;
 }
