@@ -1,6 +1,6 @@
 # The C Programming Language Answers
 
-It's not an app, it's a collection of small programs that answers to exercises of the books "The C programming language" (by B.R.KERNIGHAN && D.M.RITCHIE)
+It's not an app, this repository is a collection of small programs that answers to exercises of the books "The C programming language" (by B.R.KERNIGHAN && D.M.RITCHIE)
 
 Welcome to the repository for "tcpl_exercise" a.k.a "The C programming language Answers" — a comprehensive answers to exercises from the book The C programming language (B.R.KERNIGHAN && D.M.RITCHIE) 
 This project aims to serve as complete annoted answers and reflexions for all developper that want to dive into C. I made these exercises with help too, don't be affraid to use it, i want to share
@@ -24,9 +24,9 @@ make ex_1
 ```
 4. don't hesitate to read and modify the code, this the goal of this repo !!!  
 
->[!WARNING] 
-> IF THEY ARE SOME REQUIREMENT THEY ARE WRITTEN INSIDE THE HEADER OF THE FILE
-> This repository as not been tested on Windows
+>[!TIP] 
+> IF THEY ARE SOME REQUIREMENT THEY ARE WRITTEN INSIDE THE HEADER OF THE FILE\
+> EXERCISES ARE NAMED LIKE THIS ex_i (answer for i) OR ex_i_j (answers for i to j) 
 
 ## Exercises Content
 
@@ -45,10 +45,12 @@ The book cover large panels of topics by chapter about C, this is a brief the ov
 **COMPILERS** : 
 - [clang](https://clang.llvm.org/) 
 - [GNU](https://gcc.gnu.org/)
+
 **BOOKS** : 
 - The C programming language (B.R.KERNIGHAN && D.M.RITCHIE) [9780131101630](https://en.wikipedia.org/wiki/Special:BookSources?isbn=9780131101630)
 - The C answers book (CLOVIS L.TONDO && SCOTT E.GIMPEL) [9789332549739](https://en.wikipedia.org/wiki/Special:BookSources?isbn=9789332549739)
-- man (don't neglect it you should use it gives really interesting intels)
+- man (don't neglect it you should use it, it gives really interesting intels)
+
 **DEBUGGER** : (debugger save life and it's a greatime to start to learn how to use it !!!)
 - [gdb](https://www.gnu.org/savannah-checkouts/gnu/gdb/index.html) 
 - [ddd](https://www.gnu.org/software/ddd/)
