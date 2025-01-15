@@ -1,7 +1,35 @@
 /************************************************************************************
- * The C Programming Language 4-3, 4-4, 4-5, 4-6, 4-7, 4-8, 4-9, 4-10 :
+ * The C Programming Language 4-3, 4-4, 4-5, 4-6, 4-7, 4-8, 4-9, 4-10 and 4-11 :
  * 
- * -> 
+ * 4-3  -> Given the basic framework, it's straightforward to extend the calculator. 
+ *        Add the modulus (%) operator and provisions for negative numbers.
+ *
+ * 4-4  -> Add the commands to print the top elements of the stack without popping, 
+ *        to duplicate it, and to swap the top two elements. Add a command to clear 
+ *        the stack.
+ *
+ * 4-5  -> Add access to library functions like sin, exp, and pow.
+ *
+ * 4-6  -> Add commands for handling variables. (It's easy to provide twenty-six 
+ *        variables with single-letter names.) Add a variable for the most recently 
+ *        printed value.
+ *
+ * 4-7  -> Write a routine ungets(s) that will push back an entire string onto the input. 
+ *        Should ungets know about buf and bufp, or should it just use ungetch?
+ *
+ * 4-8  -> Suppose that there will never be more than one character of pushback. 
+ *        Modify getch and ungetch accordingly.
+ *
+ * 4-9  -> Our getch and ungetch do not handle a pushed-back EOF correctly. Decide 
+ *        what their properties ought to be if an EOF is pushed back, then implement 
+ *        your design.
+ *
+ * 4-10 -> An alternate organization uses getline to read an entire input line; 
+ *        this makes getch and ungetch unnecessary. Revise the calculator to use this 
+ *        approach.
+ *
+ * 4-11 -> Modify getop so that it doesn't need to use ungetch. Hint: use an 
+ *        internal static variable.
  *
  * Copyright (c) 2024 CHABOT Yohan 
  ************************************************************************************/
@@ -13,8 +41,8 @@
 #include <string.h>
 
 #define MAXOP 100
-#define NUMBER '0'
-#define MATHOP '1'
+#define NUMBER '0'  /* operation code for number */
+#define MATHOP '1'  /* operation code for Math operation */
 #define VAR_NUMBER 26
 
 void clear(void);
@@ -144,6 +172,7 @@ double pop(void){
 int getch(void);
 void ungetch(int);
 
+//4-11 dealing equivalent with 4-10 but use static var to keep up (w/o getch and ungetch)
 //4-10 dealing with getline only change getop to play with an array and a global index without calling getch and ungetch because there is no overflow while reading
 //the getch() always goes +1 further than the number that why they've put ungetch to keep the on that goes out of the buffer
 int getop(char s[]){ /* get next char or numeric operand */

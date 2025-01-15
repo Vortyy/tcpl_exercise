@@ -31,6 +31,7 @@ int binsearch_book(int x, int v[], int n){
   return -1; // no match
 }
 
+//binasearch exercise
 int binsearch(int x, int v[], int n){
   int low, high, mid;
   low = 0;
@@ -44,7 +45,7 @@ int binsearch(int x, int v[], int n){
     mid = (low + high)/2;
   }
 
-  if(x == v[mid]){
+  if(x == v[mid]){ //
     return mid;
   } else {
     return -1;

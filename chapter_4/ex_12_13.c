@@ -1,7 +1,11 @@
 /************************************************************************************
  * The C Programming Language 4-12, 4-13 :
  * 
- * -> 
+ * 4-12 -> Adapt the ideas of printd to write a recursive version of itoa; that is, 
+ *         convert an integer into a string by calling a recursive routine.
+ *
+ * 4-13 -> Write a recursive version of the function reverse(s), which reverses the 
+ *         string s in place.
  *
  * Copyright (c) 2024 CHABOT Yohan 
  ************************************************************************************/

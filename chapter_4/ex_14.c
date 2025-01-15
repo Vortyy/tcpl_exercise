@@ -1,7 +1,7 @@
  /************************************************************************************
  * The C Programming Language 4-14:
  * 
- * -> 
+ * -> Define a macro swap(t,x,y) that interchanges two arguments of type t.
  *
  * Copyright (c) 2024 CHABOT Yohan 
  ************************************************************************************/ 
