@@ -29,7 +29,7 @@ clang ex_1.c -o ex_1 -lm
 
 ## Exercises Content
 
-The book cover large panels of topics by chapter about C, this is a brief the overview of each :
+The book cover a large panels of topics by chapter about C, this is a brief the overview of each :
 
 - [chapter_2](chapter_2) : Types, Operators and Expression (Precedence and Order of evaluation, etc.)
 - [chapter_3](chapter_3) : Control Flow (recursivity, loops or goto etc.)
