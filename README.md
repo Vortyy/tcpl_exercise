@@ -4,7 +4,7 @@ Welcome to the repository for "tcpl_exercise" a.k.a "The C programming language 
 This project aims to serve as complete annoted answers and reflexions for all developper that want to dive into C. 
 
 I made these exercises with help, don't be affraid to use it, i want to share [ressources](ressources) that have been really helpful during this lecture, 
-sometimes when you're stuck you're happy to understand or even compare your solution with other make you understand deeper the solution and maybe correct some mistakes.
+sometimes when you're stuck you're happy to understand or even compare your solution with other ! it makes, you understand deeper the solution and maybe correct some mistakes.
 
 ## Getting Started
 
