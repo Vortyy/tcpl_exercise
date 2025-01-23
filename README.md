@@ -21,7 +21,7 @@ cd tcpl_exercise/chapter_2
 clang ex_1.c -o ex_1 -lm
 ./ex_1
 ```
-4. don't hesitate to read and modify the code, this the goal of this repo !!!  
+4. don't hesitate to read and modify the code, this is the goal of this repo !!!  
 
 >[!TIP] 
 > IF THEY ARE SOME REQUIREMENT THEY ARE WRITTEN INSIDE THE HEADER OF THE FILE\
